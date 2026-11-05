@@ -1,0 +1,16 @@
+-- Questão: Lyft Driver Wages
+-- Link: https://platform.stratascratch.com/coding/10003-lyft-driver-wages
+-- Dificuldade: Fácil
+-- Tema: Window functions (AVG OVER), PARTITION BY
+- - Contexto: listar os motoristas da Lyft cujo salário anual está nas
+-- faixas extremas: até 30 mil ou a partir de 70 mil.
+
+-- Abordagem:
+-- Filtrei com WHERE e dois critérios ligados por OR, usando <= e >=
+-- porque o enunciado inclui os valores exatos (30.000 e 70.000).
+-- SELECT * atende ao pedido de trazer todos os detalhes dos registros.
+
+SELECT *
+FROM lyft_drivers
+WHERE yearly_salary <= 30000 
+      OR yearly_salary >= 70000
