@@ -1,0 +1,12 @@
+-- Questão: Average Salaries
+-- Link: https://platform.stratascratch.com/coding/9917-average-salaries
+-- Dificuldade: Fácil
+-- Tema: Window functions (AVG OVER), PARTITION BY
+-- Contexto: comparar o salário de cada funcionário com a média salarial do seu departamento.
+
+-- Abordagem:
+-- Usei AVG como window function particionada por departamento. Assim a média do departamento é calculada e repetida em cada linha, sem
+-- colapsar os funcionários em uma linha por departamento.
+
+SELECT department, first_name, salary, AVG (salary) OVER (PARTITION BY department)
+FROM employee
