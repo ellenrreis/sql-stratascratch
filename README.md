@@ -1,6 +1,3 @@
-# sql-stratascratch
-Resoluções comentadas de questões de SQL (PostgreSQL) do StrataScratch
-
 # SQL Practice: StrataScratch
 
 Resoluções comentadas de questões de SQL da plataforma [StrataScratch](https://www.stratascratch.com/), focadas em preparação para entrevistas de dados e analytics.
@@ -10,7 +7,7 @@ Este repositório reúne as soluções que escrevi enquanto estudo SQL, junto co
 
 - **Dialeto:** PostgreSQL
 - **Foco:** agregações, joins, CTEs, window functions
-- **Última atualização:** 11/2023
+- **Última atualização:** 11/2026
 
 ## Estrutura
 
