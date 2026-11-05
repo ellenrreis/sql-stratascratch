@@ -1,0 +1,15 @@
+-- Questão: Artist Appearance Count
+-- Link: https://platform.stratascratch.com/coding/9992-find-artists-that-have-been-on-spotify-the-most-number-of-times
+-- Dificuldade: Fácil
+-- Tema: Agregação (COUNT, GROUP BY)
+-- Contexto: contar quantas vezes cada artista aparece nos rankings diários de músicas do Spotify.
+
+-- Abordagem:
+-- Agrupei por artista e usei COUNT(*) para contar as linhas de cada grupo, já que cada linha da tabela representa uma aparição no ranking.
+-- Ordenei do maior para o menor número de aparições para destacar os artistas mais frequentes (o enunciado não exige ordem; é só para
+-- facilitar a leitura).
+
+SELECT artist, count(*) as contagem
+FROM spotify_worldwide_daily_song_ranking
+GROUP BY artist
+ORDER BY contagem DESC
