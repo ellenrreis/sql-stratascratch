@@ -1,0 +1,16 @@
+-- Questão: Order Details
+-- Link: https://platform.stratascratch.com/coding/9913-order-details
+-- Dificuldade: Fácil
+-- Tema: JOIN, filtro (WHERE, OR)
+-- Contexto: listar os detalhes dos pedidos feitos por clientes de primeiro nome Jill ou Eva, ordenados pelo id do cliente.
+
+-- Abordagem:
+-- Parti de customers e fiz LEFT JOIN com orders para trazer data, detalhes e custo dos pedidos junto com o primeiro nome. Filtrei os
+-- nomes com WHERE e dois critérios ligados por OR, e ordenei por id do cliente de forma crescente, como pede o enunciado.
+
+SELECT c.first_name, o.order_date, o.order_details, o.total_order_cost
+FROM customers c
+LEFT JOIN orders o
+ON c.id = o.cust_id
+WHERE c.first_name='Jill' OR c.first_name = 'Eva'
+ORDER BY c.id
