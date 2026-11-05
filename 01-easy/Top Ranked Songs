@@ -1,0 +1,19 @@
+-- Questão: Top Ranked Songs
+-- Link: https://platform.stratascratch.com/coding/9991-top-ranked-songs
+-- Dificuldade: Fácil
+-- Tema: Agregação (COUNT, GROUP BY), filtro (WHERE)
+-- Contexto: encontrar as músicas que chegaram ao 1º lugar nos rankings diários por região e contar quantas vezes isso aconteceu.
+
+-- Abordagem:
+-- Filtrei com WHERE as linhas em que a posição é 1 e depois agrupei por
+-- música com COUNT(*). Cada linha representa um dia em uma região, então
+-- contar linhas já atende à regra de que cada ocorrência vale 1, mesmo
+-- que a música seja #1 em vários países no mesmo dia. Usei WHERE (e não
+-- HAVING) porque o filtro é sobre a linha, antes da agregação; assim só
+-- entram músicas que foram #1 ao menos uma vez.
+
+SELECT COUNT (*) as contagem, trackname
+FROM spotify_worldwide_daily_song_ranking
+WHERE position = 1
+GROUP BY trackname
+ORDER BY contagem DESC
