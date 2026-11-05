@@ -1,0 +1,24 @@
+-- Questão: Finding Updated Records
+-- Link: https://platform.stratascratch.com/coding/10299-finding-updated-records
+-- Dificuldade: Fácil
+-- Tema: Window functions (ROW_NUMBER), CTE
+-- Contexto: a tabela ms_employee_salary pode ter vários registros por funcionário; o salário atual é o maior valor entre eles.
+
+-- Abordagem:
+-- Numerei os registros de cada funcionário do maior para o menor salário
+-- (ROW_NUMBER particionado por id) e mantive apenas o primeiro (rn = 1).
+-- Usei window function em vez de GROUP BY + MAX porque preciso trazer
+-- as demais colunas (nome, departamento) junto com o salário.
+
+-- obs: se houver empate de salário máximo para o mesmo id, ROW_NUMBER escolhe uma linha arbitrariamente. RANK() traria todas.
+-- GROUP BY id, first_name, last_name, department_id com MAX(salary). Funciona se essas colunas não variarem entre os registros do mesmo funcionário.
+
+WITH salarios_ordenados AS (
+    SELECT  id, first_name, last_name, department_id, salary,
+    ROW_NUMBER() OVER (PARTITION BY id ORDER BY salary DESC) AS ranking_salario
+    FROM ms_employee_salary
+)
+SELECT id,first_name,last_name,department_id,salary
+FROM salarios_ordenados
+WHERE ranking_salario = 1
+ORDER BY id;  -- crescente, conforme o enunciado
