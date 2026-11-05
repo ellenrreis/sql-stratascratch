@@ -1,0 +1,20 @@
+-- Questão: Total Cost Of Orders
+-- Link: https://platform.stratascratch.com/coding/10183-total-cost-of-orders
+-- Dificuldade: Fácil
+-- Tema: JOIN, agregação (SUM, GROUP BY)
+-- Contexto: calcular quanto cada cliente gastou no total, considerando apenas clientes que fizeram pelo menos um pedido.
+
+-- Abordagem:
+-- Parti da tabela orders e fiz LEFT JOIN com customers. Agrupei por id e nome e
+-- somei o custo dos pedidos. Agrupei também por id (não só por nome)
+-- para não juntar clientes diferentes com o mesmo primeiro nome.
+
+-- Alternativa: INNER JOIN, que expressa melhor a intenção e evita
+-- linhas com cliente nulo caso exista pedido sem cliente cadastrado.
+
+SELECT c.id, c.first_name, SUM(total_order_cost)
+FROM orders as o
+LEFT JOIN customers as c
+ON o.cust_id = c.id
+GROUP BY c.id, c.first_name
+ORDER BY first_name
