@@ -9,9 +9,8 @@ Resoluções comentadas de questões de SQL da plataforma [StrataScratch](https:
 Este repositório reúne as soluções que escrevi enquanto estudo SQL, junto com o raciocínio por trás de cada uma.
 
 - **Dialeto:** PostgreSQL
-- **Foco:** [agregações, joins, CTEs, window functions, manipulação de datas e strings]
-- **Objetivo:** [ex.: me preparar para vagas de Analista de Dados / Analytics Engineer]
-- **Última atualização:** [mês/ano]
+- **Foco:** agregações, joins, CTEs, window functions
+- **Última atualização:** 11/2023
 
 ## Estrutura
 
