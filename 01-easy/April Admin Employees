@@ -1,0 +1,16 @@
+-- Questão: April Admin Employees
+-- Link: https://platform.stratascratch.com/coding/9845-april-admin-employees
+-- Dificuldade: Fácil
+-- Tema: Funções de data (EXTRACT), agregação (COUNT), filtro (WHERE)
+-- Contexto: contar os funcionários do departamento Admin que entraram
+-- na empresa de abril em diante, em qualquer ano.
+
+-- Abordagem:
+-- Filtrei o departamento com WHERE e usei EXTRACT(MONTH FROM
+-- joining_date) para pegar só o mês da data de entrada. Como o enunciado
+-- diz "em qualquer ano", o ano é ignorado e basta comparar o mês com
+-- >= 4. COUNT(*) conta as linhas que passam nos dois filtros.
+
+SELECT COUNT(*) 
+FROM worker
+WHERE department = 'Admin' AND EXTRACT (MONTH FROM joining_date) >= 04
