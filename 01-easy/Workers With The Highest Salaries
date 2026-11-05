@@ -1,0 +1,20 @@
+-- Questão: Total Cost Of Orders
+-- Link: https://platform.stratascratch.com/coding/10353-workers-with-the-highest-salaries
+-- Dificuldade: Fácil
+-- Tema: JOIN, subquery, MAX
+-- Contexto: encontrar o(s) cargo(s) dos funcionários com maior salário, considerando apenas quem tem registro na tabela title.
+
+
+-- Abordagem:
+-- Usei uma subquery com JOIN entre worker e title para calcular o maior salário só entre funcionários com cargo registrado. Se eu usasse MAX
+-- direto em worker, funcionários sem registro entrariam no cálculo e o resultado poderia ficar vazio. Na query principal, filtrei quem tem
+-- esse salário, o que inclui todos em caso de empate. DISTINCT evita cargos repetidos, e o ORDER BY atende à ordenação alfabética.
+
+SELECT DISTINCT t.worker_title
+FROM worker w
+JOIN title t
+ON w.worker_id = t.worker_ref_id
+WHERE w.salary = (SELECT max(w2.salary) FROM worker w2 JOIN title t2
+      ON w2.worker_id = t2.worker_ref_id
+)
+ORDER BY t.worker_title
