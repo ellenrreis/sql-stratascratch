@@ -1,0 +1,19 @@
+-- Questão: Number of Violations
+-- Link: https://platform.stratascratch.com/coding/9728-inspections-that-resulted-in-violations
+-- Dificuldade: Fácil
+-- Tema: Funções de data (EXTRACT), agregação (COUNT, GROUP BY), NULL
+
+-- Contexto: contar quantas violações o restaurante Roxanne Cafe teve em cada ano, com base na data da inspeção.
+
+-- Abordagem:
+-- Cada linha é uma inspeção, e violation_id só é preenchido quando houve
+-- violação. Por isso usei COUNT(violation_id) em vez de COUNT(*): o COUNT
+-- de uma coluna ignora nulos, então só as inspeções com violação entram
+-- na conta. Filtrei o restaurante com WHERE, extraí o ano da data com
+-- EXTRACT, agrupei por ele e ordenei de forma crescente.
+
+SELECT EXTRACT (YEAR FROM inspection_date) as ano, COUNT (violation_id)
+FROM sf_restaurant_health_violations
+WHERE business_name = 'Roxanne Cafe' 
+GROUP BY EXTRACT (YEAR FROM inspection_date)
+ORDER BY ano
