@@ -1,0 +1,18 @@
+-- Questão: Most Profitable Financial Company
+-- Link: https://platform.stratascratch.com/coding/9663-most-profitable-financial-company
+-- Dificuldade: Fácil
+-- Tema: Filtros (WHERE), ordenação (ORDER BY), LIMIT
+
+-- Contexto: encontrar a empresa mais lucrativa do setor financeiro e retornar também o continente.
+
+-- Abordagem:
+-- Filtrei com WHERE as empresas do setor financeiro, ordenei pelo lucro
+-- do maior para o menor e usei LIMIT 1 para ficar só com a primeira.
+-- O filtro vem antes da ordenação para que o "mais lucrativo" seja
+-- calculado só entre as empresas do setor pedido.
+
+SELECT company, continent
+FROM forbes_global_2010_2014
+WHERE sector = 'Financials'
+ORDER BY profits DESC
+LIMIT 1
