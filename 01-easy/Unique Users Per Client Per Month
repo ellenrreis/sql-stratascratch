@@ -1,0 +1,19 @@
+-- Questão: Unique Users Per Client Per Month
+-- Link: https://platform.stratascratch.com/coding/2024-unique-users-per-client-per-month
+-- Dificuldade: Fácil
+-- Tema: Funções de data (EXTRACT), agregação (COUNT DISTINCT, GROUP BY)
+
+-- Contexto: contar quantos usuários únicos cada cliente teve em cada mês, com o mês representado como número de 1 a 12.
+
+-- Abordagem:
+-- Extraí o mês da data do evento com EXTRACT e agrupei por cliente e por
+-- mês. Usei COUNT(DISTINCT user_id) porque o mesmo usuário pode gerar
+-- vários eventos no mesmo mês, e o enunciado pede usuários únicos. Como
+-- todos os eventos ocorrem no mesmo ano, não preciso separar por ano.
+
+SELECT
+    client_id AS cliente,
+    COUNT(DISTINCT user_id),
+    EXTRACT(MONTH FROM time_id)
+FROM fact_events
+GROUP BY EXTRACT(MONTH FROM time_id), client_id
