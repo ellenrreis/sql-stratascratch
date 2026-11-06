@@ -1,0 +1,16 @@
+-- Questão: MacBookPro User Event Count
+-- Link: https://platform.stratascratch.com/coding/9653-macbookpro-user-event-count
+-- Dificuldade: Fácil
+-- Tema: Agregação (COUNT, GROUP BY), filtro (WHERE)
+
+-- Contexto: contar quantas vezes cada evento foi realizado em dispositivos MacBook Pro.
+
+-- Abordagem:
+-- Filtrei com WHERE as linhas do dispositivo 'macbook pro', agrupei por nome do evento e contei as ocorrências de cada grupo. Ordenei do maior
+-- para o menor número de eventos para destacar os mais frequentes (o enunciado não exige ordem, só para facilitar a leitura).
+
+SELECT COUNT(event_type) as contagem, event_name
+FROM playbook_events
+WHERE device = 'macbook pro'
+GROUP BY event_name
+ORDER BY contagem DESC
