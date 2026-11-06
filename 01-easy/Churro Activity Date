@@ -1,0 +1,18 @@
+-- Questão: Churro Activity Date
+-- Link: https://platform.stratascratch.com/coding/9688-churro-activity-date
+-- Dificuldade: Fácil
+-- Tema: Filtros (WHERE, AND)
+
+-- Contexto: listar as inspeções sanitárias da 'STREET CHURROS' que tiveram nota abaixo de 95, com a data e a categoria de risco.
+
+-- Abordagem:
+-- Filtrei com WHERE o nome do estabelecimento e a nota, ligando os dois
+-- critérios com AND (os dois precisam ser verdadeiros). Selecionei só as
+-- colunas pedidas: activity_date e pe_description. Usei "< 95" e não
+-- "<= 95" porque o enunciado diz "abaixo de 95", o que exclui a nota 95.
+
+SELECT
+    activity_date,
+    pe_description
+FROM los_angeles_restaurant_health_inspections
+WHERE facility_name = 'STREET CHURROS' AND score < 95
