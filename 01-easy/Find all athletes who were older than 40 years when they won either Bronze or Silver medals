@@ -1,0 +1,14 @@
+-- Questão: Find all athletes who were older than 40 years when they won either Bronze or Silver medals
+-- Link: https://platform.stratascratch.com/coding/9937-find-all-athletes-who-were-older-than-40-years-when-they-won-either-bronze-or-silver-medals
+-- Dificuldade: Fácil
+-- Tema: Filtro com WHERE, operadores lógicos (AND/OR)
+-- Contexto: encontrar os atletas que tinham mais de 40 anos ao conquistar medalha de Bronze ou Prata, retornando apenas os nomes.
+
+-- Abordagem:
+-- Usei WHERE para combinar duas condições: o tipo de medalha (Bronze ou Silver) e a idade maior que 40. Coloquei o OR entre parênteses
+-- para que ele seja avaliado antes do AND, garantindo que o filtro de idade valha para as duas medalhas. Selecionei apenas a coluna name.
+
+select name
+from olympics_athletes_events
+where (medal = 'Bronze' or medal = 'Silver')
+      and age > 40
