@@ -1,0 +1,15 @@
+-- Questão: Departments With 5 Employees
+-- Link: https://platform.stratascratch.com/coding/9911-departments-with-5-employees
+-- Dificuldade: Fácil
+-- Tema: Agregação (COUNT), GROUP BY, filtro com HAVING
+-- Contexto: encontrar os departamentos que possuem 5 ou mais funcionários.
+
+-- Abordagem:
+-- Agrupei os funcionários por departamento com GROUP BY e usei HAVING para filtrar os grupos após a contagem, já que a condição depende
+-- de uma função de agregação (WHERE não pode ser usado aqui). Usei COUNT(DISTINCT id) para garantir que cada funcionário seja contado
+-- uma única vez, mesmo que haja linhas repetidas, e o filtro >= 5 inclui os departamentos com exatamente 5 funcionários ou mais.
+
+select department
+from employee
+group by department
+having count (distinct id) >= 5
