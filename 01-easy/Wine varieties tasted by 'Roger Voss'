@@ -1,0 +1,16 @@
+-- Questão: Wine varieties tasted by 'Roger Voss'
+-- Link: https://platform.stratascratch.com/coding/10024-wine-varieties-tasted-by-roger-voss
+-- Dificuldade: Fácil
+-- Tema: Filtro com WHERE, tratamento de NULL (IS NOT NULL), valores únicos (GROUP BY)
+-- Contexto: encontrar as variedades de vinho provadas por 'Roger Voss' que possuem valor preenchido na coluna region_1, retornando apenas nomes únicos.
+
+-- Abordagem:
+-- Filtrei com WHERE o taster_name igual a 'Roger Voss' e usei IS NOT NULL em region_1 para manter só as linhas com região informada.
+-- Como o mesmo vinho/variedade pode aparecer em várias avaliações, usei GROUP BY variety para devolver cada variedade uma única vez,
+-- o que tem o mesmo efeito de um SELECT DISTINCT.
+
+select variety
+from winemag_p2
+where taster_name = 'Roger Voss' 
+      and region_1 IS NOT NULL
+group by variety
