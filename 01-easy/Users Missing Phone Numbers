@@ -1,0 +1,14 @@
+-- Questão: Users Missing Phone Numbers
+-- Link: https://platform.stratascratch.com/coding/2168-users-missing-phone-numbers
+-- Dificuldade: Fácil
+-- Tema: Filtro com WHERE, tratamento de NULL (IS NULL)
+-- Contexto: identificar usuários que ainda não informaram o telefone, para exibir um prompt pedindo o contato (nova feature de notificações via WhatsApp).
+
+-- Abordagem:
+-- Filtrei com WHERE usando IS NULL na coluna phone_number, já que NULL representa ausência de valor e não pode ser comparado com "=".
+-- Selecionei apenas o ID e o nome do usuário, renomeando as colunas com alias (ID e name) conforme o formato pedido no enunciado.
+
+select user_id as ID,
+user_name as name
+from fintech_app_users
+where phone_number is NULL
