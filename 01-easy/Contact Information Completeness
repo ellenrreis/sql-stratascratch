@@ -1,0 +1,18 @@
+-- Questão: Contact Information Completeness
+-- Link: https://platform.stratascratch.com/coding/2169-contact-information-completeness
+-- Dificuldade: Fácil
+-- Tema: Agregação condicional (SUM + CASE WHEN), cálculo de proporção, tratamento de NULL
+-- Contexto: auditar a qualidade dos registros de funcionários calculando a proporção de funcionários com telefone NULL.
+
+-- Abordagem:
+-- Usei SUM com CASE WHEN para contar apenas os funcionários com phone_number NULL (cada um vale 1.0) e dividi pelo total de
+-- funcionários com COUNT(id). O 1.0 força a divisão decimal, evitando que o resultado seja truncado para 0 por divisão inteira.
+-- Como não há GROUP BY, o cálculo cobre a tabela inteira e retorna uma única linha com a razão.
+
+select
+SUM(CASE 
+    WHEN phone_number IS NULL 
+    THEN 1.0
+    END)/
+COUNT(id)
+from techcorp_workforce
