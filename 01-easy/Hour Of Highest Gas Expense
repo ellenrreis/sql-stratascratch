@@ -1,0 +1,14 @@
+-- Questão: Hour Of Highest Gas Expense
+-- Link: https://platform.stratascratch.com/coding/10005-hour-of-highest-gas-expense
+-- Dificuldade: Fácil
+-- Tema: Subquery escalar (MAX), filtro com WHERE
+-- Contexto: encontrar a hora da única corrida com o maior custo de gasolina.
+
+-- Abordagem:
+-- Usei uma subquery escalar com MAX(gasoline_cost) para descobrir o maior custo de gasolina da tabela inteira. Na consulta externa,
+-- filtrei com WHERE as linhas cujo gasoline_cost é igual a esse valor máximo e selecionei apenas a coluna hour. Como o enunciado garante
+-- que só uma corrida possui o valor máximo, o resultado é exatamente uma hora.
+
+select hour
+from lyft_rides
+WHERE gasoline_cost = (select max(gasoline_cost) from lyft_rides)
