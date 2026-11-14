@@ -1,0 +1,15 @@
+-- Questão: Olympics Events List By Age
+-- Link: https://platform.stratascratch.com/coding/9943-olympics-events-list-by-age
+-- Dificuldade: Fácil
+-- Tema: Funções de agregação (MIN, AVG, MAX)
+-- Contexto: encontrar a menor, a média e a maior idade dos atletas em todas as Olimpíadas, considerando cada participação (inclusive em mais de uma disciplina no mesmo evento) como um atleta separado.
+
+-- Abordagem:
+-- Usei MIN, AVG e MAX sobre a coluna age para obter os três valores em uma única consulta. Como não há GROUP BY, as agregações são
+-- calculadas sobre a tabela inteira e retornam uma única linha. Seguindo a dica do enunciado, não removi duplicatas: cada linha conta
+-- como um atleta distinto, então não é necessário DISTINCT. As funções de agregação ignoram valores NULL em age automaticamente.
+
+select min(age) as lowest,
+avg(age) as average,
+max(age) as highest
+from olympics_athletes_events
