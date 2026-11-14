@@ -1,0 +1,12 @@
+-- Questão: Inspection For Glassell Coffee Shop
+-- Link: https://platform.stratascratch.com/coding/9689-inspection-for-glassell-coffee-shop
+-- Dificuldade: Fácil
+-- Tema: Filtro com WHERE, seleção de todas as colunas (SELECT *)
+-- Contexto: levantar todos os registros de inspeção de estabelecimentos pertencentes ao proprietário 'GLASSELL COFFEE SHOP LLC'.
+
+-- Abordagem:
+-- Usei WHERE para filtrar as linhas em que owner_name é igual a 'GLASSELL COFFEE SHOP LLC'. Como o enunciado pede todas as colunas
+-- dos registros de inspeção, utilizei SELECT * em vez de listar os campos um a um. 
+
+select * from los_angeles_restaurant_health_inspections
+where owner_name = 'GLASSELL COFFEE SHOP LLC'
