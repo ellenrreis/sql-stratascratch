@@ -1,0 +1,17 @@
+-- Questão: High Earners in Support Departments
+-- Link: https://platform.stratascratch.com/coding/2167-high-earners-in-support-departments
+-- Dificuldade: Fácil
+-- Tema: Filtro com WHERE, operadores lógicos (AND/OR)
+-- Contexto: identificar funcionários dos departamentos HR e Admin com salário acima de $80.000, para um estudo de benchmarking salarial.
+
+-- Abordagem:
+-- Usei WHERE combinando duas condições: o departamento (HR ou Admin) e o salário maior que 80000. Coloquei o OR entre parênteses
+-- para que ele seja avaliado antes do AND, garantindo que o filtro de salário valha para os dois departamentos. Selecionei apenas as
+-- colunas pedidas no enunciado.
+
+select first_name,
+last_Name,
+department,
+salary
+from techcorp_workforce
+where (department = 'HR' or department = 'Admin') and salary > 80000
