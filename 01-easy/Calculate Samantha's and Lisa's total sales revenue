@@ -1,0 +1,13 @@
+-- Questão: Calculate Samantha's and Lisa's total sales revenue
+-- Link: https://platform.stratascratch.com/coding/10127-calculate-samantha-and-lisas-total-sales-revenue
+-- Dificuldade: Fácil
+-- Tema: Agregação (SUM), filtro com WHERE
+-- Contexto: verificar a receita combinada gerada por duas vendedoras (Samantha e Lisa) e retornar o total como um único número.
+
+-- Abordagem:
+-- Usei SUM para somar a receita de vendas e filtrei com WHERE apenas as linhas das duas vendedoras. Apliquei LOWER na coluna
+-- salesperson para a comparação não depender de maiúsculas/minúsculas, e o OR garante que entrem tanto Samantha quanto Lisa.
+
+select SUM(sales_revenue)
+from sales_performance
+where lower(salesperson) = 'samantha' or lower(salesperson) ='lisa'
