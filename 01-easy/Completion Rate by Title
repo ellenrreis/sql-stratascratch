@@ -1,0 +1,23 @@
+-- Questão: Completion Rate by Title
+-- Link: https://platform.stratascratch.com/coding/10803-completion-rate-by-title
+-- Dificuldade: Fácil
+-- Tema: Agregação (SUM, COUNT), JOIN, subquery com HAVING, cálculo de percentual
+-- Contexto: descobrir quais títulos os espectadores realmente terminam, calculando a taxa de conclusão (%) das sessões apenas para títulos com pelo menos 100 sessões de visualização.
+
+-- Abordagem:
+-- Usei uma subquery com GROUP BY e HAVING para selecionar apenas os títulos com 100 ou mais sessões (COUNT DISTINCT session_id), e filtrei
+-- a consulta principal com IN. Depois fiz um LEFT JOIN com a tabela de títulos para obter o nome e calculei a taxa de conclusão como
+-- 100 * SUM(completed) / COUNT(*), de modo que toda sessão entra no total, inclusive as com tempo de exibição zero ou ausente. Por fim,
+-- arredondei o resultado para 1 casa decimal com ROUND e agrupei por title_name.
+
+select titulos.title_name,
+round(100*sum(completed)/count(*),1)
+from stream_sessions as sessao
+left join stream_titles as titulos
+on sessao.title_id = titulos.title_id
+where sessao.title_id IN 
+                    (select title_id
+                    from stream_sessions 
+                    group by title_id
+                    having COUNT(distinct session_id) >= 100)
+group by titulos.title_name
