@@ -1,0 +1,25 @@
+-- Questão: Salary Less Than Twice The Average
+-- Link: https://platform.stratascratch.com/coding/2110-salary-less-than-twice-the-average
+-- Dificuldade: Médio
+-- Tema: CTE (WITH), JOIN, agregação (AVG), GROUP BY, filtro com WHERE
+-- Contexto: encontrar os gerentes cujo salário é menor que o dobro da média salarial dos funcionários que reportam a eles, retornando ID, salário do gerente e média salarial dos subordinados.
+
+-- Abordagem:
+-- Usei uma CTE para calcular, por gerente, a média salarial dos subordinados: juntei a tabela de hierarquia (map_employee_hierarchy)
+-- com a de funcionários (dim_employee) pelo empl_id do subordinado e agrupei por manager_empl_id, descartando linhas sem gerente com
+-- IS NOT NULL. Na consulta principal, fiz um segundo JOIN com dim_employee, agora pelo ID do gerente, para obter o salário dele, e
+-- filtrei com WHERE os casos em que o salário do gerente é menor que 2 vezes a média dos subordinados. 
+
+WITH slr_subordinados AS (
+select mapa.manager_empl_id as gerente, avg(infos.salary) as media_subordinados
+from map_employee_hierarchy as mapa
+left join dim_employee as infos
+on mapa.empl_id = infos.empl_id
+where mapa.manager_empl_id IS NOT NULL
+group by mapa.manager_empl_id)
+select slr_medio.gerente, slr_gerente.salary as salario_gerente,
+slr_medio.media_subordinados
+from slr_subordinados as slr_medio
+left join dim_employee as slr_gerente
+on slr_medio.gerente = slr_gerente.empl_id
+where slr_gerente.salary < 2*slr_medio.media_subordinados
