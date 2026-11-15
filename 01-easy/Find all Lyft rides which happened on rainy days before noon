@@ -1,0 +1,13 @@
+-- Questão: Find all Lyft rides which happened on rainy days before noon
+-- Link: https://platform.stratascratch.com/coding/10004-find-all-lyft-rides-which-happened-on-rainy-days-before-noon
+-- Dificuldade: Fácil
+-- Tema: Filtro com WHERE, operador lógico (AND), SELECT *
+-- Contexto: encontrar todas as corridas da Lyft que aconteceram em dias de chuva antes do meio-dia, retornando todas as colunas.
+
+-- Abordagem:
+-- Usei WHERE combinando duas condições com AND: a hora menor que 12 (antes do meio-dia) e o clima igual a 'rainy'. Como o enunciado
+-- pede as corridas completas, utilizei SELECT * para retornar todas as colunas. Não foi necessário GROUP BY nem agregação, pois
+-- queremos cada corrida individual como está.
+
+select * from lyft_rides
+where hour < 12 and weather ='rainy'
