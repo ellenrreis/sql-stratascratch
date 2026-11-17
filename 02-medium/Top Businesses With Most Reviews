@@ -1,0 +1,24 @@
+-- Questão: Top Businesses With Most Reviews
+-- Link: https://platform.stratascratch.com/coding/10048-top-businesses-with-most-reviews
+-- Dificuldade: Médio
+-- Tema: CTE (WITH), Window function (RANK), filtro com WHERE, ORDER BY
+-- Contexto: encontrar os 5 negócios com mais avaliações, retornando o nome e o total de avaliações, ordenados de forma decrescente. Em caso de empate, negócios com o mesmo número de avaliações recebem o mesmo rank e os ranks seguintes são pulados (ex.: dois negócios empatados em 4º lugar, o próximo é 6º).
+
+-- Abordagem:
+-- Como o total de avaliações (review_count) já está em cada linha e business_id é único, não precisei agregar nada.
+-- Em uma CTE, apliquei RANK() OVER (ORDER BY review_count DESC) para classificar os negócios. Escolhi RANK porque
+-- o enunciado descreve exatamente o seu comportamento: empates recebem a mesma posição e a posição seguinte é
+-- pulada. Na consulta principal, filtrei rank <= 5 com WHERE, o que mantém todos os negócios empatados dentro do top 5,
+-- algo que um LIMIT 5 cortaria arbitrariamente. Por fim, ordenei por review_count decrescente.
+
+WITH ranking_negocios AS (
+    SELECT
+        name, review_count,
+        RANK() OVER (ORDER BY review_count DESC) AS rank_reviews
+    FROM yelp_business
+)
+SELECT
+    name, review_count
+FROM ranking_negocios
+WHERE rank_reviews <= 5
+ORDER BY review_count DESC
