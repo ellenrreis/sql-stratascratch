@@ -1,0 +1,26 @@
+-- Questão: Top 10 Songs 2010
+-- Link: https://platform.stratascratch.com/coding/9650-top-10-songs-2010
+-- Dificuldade: Médio
+-- Tema: Window function (DENSE_RANK com PARTITION BY), subquery, filtro com WHERE, ORDER BY, LIMIT
+-- Contexto: encontrar as 10 músicas mais bem ranqueadas de 2010, retornando posição no ranking, nome do grupo e nome da música, sem repetir a mesma música e ordenando pelo ranking de forma crescente.
+
+-- Abordagem:
+-- Na subquery, filtrei apenas o ano de 2010 com WHERE e usei DENSE_RANK() OVER (PARTITION BY song_name ORDER BY artist)
+-- para numerar as ocorrências de cada música: cada song_name forma uma partição, e a coluna class marca a posição
+-- de cada linha dentro dela. Na consulta externa, mantive apenas class = 1, de modo que cada música apareça uma única
+-- vez. Por fim, ordenei por year_rank de forma crescente e limitei a 10 linhas para obter o top 10.
+
+SELECT
+    year_rank,
+    group_name,
+    song_name
+FROM (
+    SELECT
+        *,
+        DENSE_RANK() OVER (PARTITION BY song_name ORDER BY artist) AS class
+    FROM billboard_top_100_year_end
+    WHERE year = 2010
+) AS ranking_2010
+WHERE class = 1
+ORDER BY year_rank ASC
+LIMIT 10
