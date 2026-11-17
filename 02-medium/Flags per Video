@@ -1,0 +1,19 @@
+-- Questão: Flags per Video
+-- Link: https://platform.stratascratch.com/coding/2102-flags-per-video
+-- Dificuldade: Médio
+-- Tema: COUNT(DISTINCT), CONCAT, GROUP BY, filtro com WHERE (IS NOT NULL)
+-- Contexto: encontrar, para cada vídeo, quantos usuários únicos o sinalizaram (flag), identificando o usuário pela combinação de nome e sobrenome e desconsiderando linhas sem ID de flag.
+
+-- Abordagem:
+-- Como não há ID de usuário, criei um identificador único concatenando user_firstname e user_lastname com um espaço
+-- entre eles (CONCAT). Filtrei com WHERE as linhas em que flag_id IS NOT NULL, já que
+-- linhas sem flag não representam uma sinalização de fato. Em seguida, agrupei por video_id e usei COUNT(DISTINCT ...)
+-- sobre o nome completo para contar cada usuário uma única vez por vídeo, mesmo que ele tenha sinalizado o mesmo
+-- vídeo mais de uma vez.
+
+SELECT
+    COUNT(DISTINCT CONCAT(user_firstname, ' ', user_lastname)) AS unique_users,
+    video_id
+FROM user_flags
+WHERE flag_id IS NOT NULL
+GROUP BY video_id
