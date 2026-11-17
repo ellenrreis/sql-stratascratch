@@ -1,0 +1,21 @@
+-- Questão: Ranking Most Active Guests
+-- Link: https://platform.stratascratch.com/coding/10159-ranking-most-active-guests
+-- Dificuldade: Médio
+-- Tema: Window function (DENSE_RANK), agregação (SUM), GROUP BY, ORDER BY
+-- Contexto: classificar os hóspedes mais engajados pelo total de mensagens trocadas com anfitriões, com o mais ativo no topo do ranking. Hóspedes com o mesmo total recebem o mesmo rank e o ranking não pode pular números. Retornar rank, identificador do hóspede e total de mensagens, do mais para o menos ativo.
+
+-- Abordagem:
+-- Agrupei a tabela airbnb_contacts por id_guest e somei n_messages para obter o total de mensagens de cada hóspede.
+-- Sobre esse total, apliquei DENSE_RANK() OVER (ORDER BY SUM(n_messages) DESC): como a window function é avaliada
+-- depois do GROUP BY, ela consegue ranquear diretamente o resultado da agregação, sem precisar de CTE ou subquery.
+-- Escolhi DENSE_RANK porque o enunciado pede que empates compartilhem o mesmo rank e que a numeração não tenha
+-- saltos (com RANK, após um empate de 2 hóspedes na posição 1, o próximo seria 3; com DENSE_RANK, é 2).
+-- Por fim, ordenei pelo total de mensagens de forma decrescente para atender à ordem pedida.
+
+SELECT
+    DENSE_RANK() OVER (ORDER BY SUM(n_messages) DESC) AS rank,
+    id_guest,
+    SUM(n_messages) AS total_messages
+FROM airbnb_contacts
+GROUP BY id_guest
+ORDER BY total_messages DESC
