@@ -1,0 +1,28 @@
+-- Questão: Customers with Large Orders
+-- Link: https://platform.stratascratch.com/coding/2172-customers-with-large-orders
+-- Dificuldade: Médio
+-- Tema: CTE (WITH), JOIN, CASE WHEN, filtro com WHERE, GROUP BY
+-- Contexto: identificar clientes de alto valor para um programa de fidelidade premium, ou seja, aqueles que fizeram pelo menos um pedido acima de $100 (independentemente do status de pagamento ou entrega), retornando ID e nome do cliente.
+
+-- Abordagem:
+-- Usei uma CTE para juntar a tabela de pedidos (online_store_orders) com a de clientes (online_store_customers) pelo customer_id
+-- e criei, com CASE WHEN, uma flag (large_order) que vale 1 quando o valor do pedido (amount) é maior que 100 e 0 caso contrário.
+-- Como não há filtro por status, todos os pedidos são considerados. Na consulta principal, filtrei com WHERE apenas as linhas
+-- em que a flag é positiva e usei GROUP BY em customer_id e name para eliminar duplicidades, já que um mesmo cliente pode ter
+-- vários pedidos acima de $100 e deve aparecer uma única vez no resultado.
+
+WITH filtro_pedidos AS (
+select clientes.customer_id as customer_id,
+clientes.customer_name as name,
+case
+    when pedidos.amount > 100
+    then 1 else 0 end
+as large_order
+from online_store_orders as pedidos
+left join online_store_customers as clientes
+on pedidos.customer_id = clientes.customer_id
+)
+select customer_id, name
+from filtro_pedidos
+where large_order > 0
+group by customer_id, name
