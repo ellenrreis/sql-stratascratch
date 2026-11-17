@@ -1,0 +1,20 @@
+-- Questão: Matching Similar Hosts and Guests
+-- Link: https://platform.stratascratch.com/coding/10078-matching-similar-hosts-and-guests
+-- Dificuldade: Médio
+-- Tema: JOIN com múltiplas condições, DISTINCT
+-- Contexto: encontrar os pares de anfitriões e hóspedes que tenham o mesmo gênero e a mesma nacionalidade, retornando o ID do anfitrião e o ID do hóspede de cada par.
+
+-- Abordagem:
+-- Juntei a tabela de anfitriões (airbnb_hosts) com a de hóspedes (airbnb_guests) usando duas condições no ON: gender
+-- igual e nationality igual. Não há uma chave em comum entre as tabelas, então o JOIN é feito pelas características
+-- que definem o "par compatível", e cada anfitrião é combinado com todos os hóspedes que atendem às duas condições.
+-- Usei DISTINCT para garantir que cada par (host_id, guest_id) apareça uma única vez, caso haja linhas duplicadas
+-- nas tabelas de origem. 
+
+SELECT DISTINCT
+    anfitrioes.host_id,
+    hospedes.guest_id
+FROM airbnb_hosts AS anfitrioes
+INNER JOIN airbnb_guests AS hospedes
+    ON anfitrioes.gender = hospedes.gender
+    AND anfitrioes.nationality = hospedes.nationality
