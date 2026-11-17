@@ -1,0 +1,23 @@
+-- Questão: Number Of Units Per Nationality
+-- Link: https://platform.stratascratch.com/coding/10156-number-of-units-per-nationality
+-- Dificuldade: Médio
+-- Tema: JOIN, COUNT(DISTINCT), GROUP BY, filtro com WHERE, ORDER BY
+-- Contexto: encontrar quantas unidades distintas do tipo apartamento (contadas por unit_id) pertencem a anfitriões com menos de 30 anos, agrupadas por nacionalidade, ordenando do maior para o menor número de apartamentos.
+
+-- Abordagem:
+-- Juntei a tabela de anfitriões (airbnb_hosts) com a de unidades (airbnb_units) pelo host_id, para associar cada unidade
+-- à idade e à nacionalidade do dono. Filtrei com WHERE os anfitriões com menos de 30 anos e as unidades do tipo 'Apartment'.
+-- Em seguida, agrupei por nationality e usei COUNT(DISTINCT unit_id) para contar cada unidade uma única vez, evitando
+-- duplicidades caso o mesmo unit_id apareça em mais de uma linha após o JOIN. Por fim, ordenei pela contagem de forma
+-- decrescente, conforme pedido no enunciado. Não foi necessária CTE, pois a lógica cabe em uma única consulta.
+
+SELECT
+    donos.nationality,
+    COUNT(DISTINCT locais.unit_id) AS n_apartments
+FROM airbnb_hosts AS donos
+INNER JOIN airbnb_units AS locais
+    ON donos.host_id = locais.host_id
+WHERE donos.age < 30
+    AND locais.unit_type = 'Apartment'
+GROUP BY donos.nationality
+ORDER BY n_apartments DESC
